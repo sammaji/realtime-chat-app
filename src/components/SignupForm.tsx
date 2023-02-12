@@ -1,79 +1,39 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { useRef } from "react";
 import { useFirebaseAuth } from "./FirebaseAuthProvider";
+import { checkIfUsernameExists } from "../utils/firebase";
 
 export default function SigninFrom() {
-  const { user, Signup } = useFirebaseAuth();
+  const usernameRef = useRef<HTMLInputElement>(null!);
+  const emailRef = useRef<HTMLInputElement>(null!);
+  const passwordRef = useRef<HTMLInputElement>(null!);
+  const { Signup } = useFirebaseAuth();
 
-  async function onFinish(values: any): Promise<void> {
-    Signup(values.username, values.email, values.password);
-  }
+  function handleSubmit(event: any): void {
+    event.preventDefault();
 
-  function onFinishFailed(errorInfo: any): void {
-    console.log(errorInfo);
+    checkIfUsernameExists(usernameRef.current.value).then((exists) => {
+      if (!exists) {
+        Signup(
+          usernameRef.current.value,
+          emailRef.current.value,
+          passwordRef.current.value
+        );
+      } else {
+        alert("Username must be unique");
+      }
+    });
   }
 
   return (
     <div>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username" }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            { required: true, message: "Please input your email" },
-            {
-              pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-              message: "Enter a valid email",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[
-            { required: true, message: "Please input your password" },
-            {
-              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-              message:
-                "Minimum eight characters, at least one letter and one number",
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-
-        <Form.Item
-          name="remember"
-          valuePropName="checked"
-          wrapperCol={{ offset: 8, span: 16 }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Create Account
-          </Button>
-        </Form.Item>
-      </Form>
+      <form>
+        <input ref={usernameRef} placeholder="username" />
+        <input ref={emailRef} placeholder="email" />
+        <input ref={passwordRef} placeholder="password" />
+        <button type="submit" onClick={(event) => handleSubmit(event)}>
+          Create Account
+        </button>
+      </form>
     </div>
   );
 }
