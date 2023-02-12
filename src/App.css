@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+nav {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+nav > a,
+nav > a:visited {
+  padding: 0 1rem 0 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+nav > a:hover {
+    color: blueviolet;
+}
