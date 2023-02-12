@@ -1,8 +1,8 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
 nav {
@@ -20,5 +20,5 @@ nav > a:visited {
 }
 
 nav > a:hover {
-    color: blueviolet;
+  color: blueviolet;
 }

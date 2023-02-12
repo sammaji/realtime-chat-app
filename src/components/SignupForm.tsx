@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { useFirebaseAuth } from "./FirebaseAuthProvider";
 import { checkIfUsernameExists } from "../utils/firebase";
+import Menu from "./Menu";
 
 export default function SigninFrom() {
   const usernameRef = useRef<HTMLInputElement>(null!);
@@ -26,6 +27,7 @@ export default function SigninFrom() {
 
   return (
     <div>
+      <Menu />
       <form>
         <input ref={usernameRef} placeholder="username" />
         <input ref={emailRef} placeholder="email" />

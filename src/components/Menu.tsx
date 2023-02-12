@@ -8,7 +8,7 @@ export default function Menu() {
           <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signin">Sign In</Link>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/user/sammaji">Dashboard</Link>
         </nav>
     </div>
   )

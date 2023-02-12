@@ -1,5 +1,6 @@
 import { MouseEvent, useRef } from "react";
 import { useFirebaseAuth } from "./FirebaseAuthProvider";
+import Menu from "./Menu";
 
 export default function LoginForm() {
   const usernameRef = useRef<HTMLInputElement>(null!);
@@ -19,6 +20,7 @@ export default function LoginForm() {
   }
   return (
     <div>
+      <Menu />
       <form>
         <input ref={usernameRef} placeholder="username" />
         <input ref={emailRef} placeholder="email" />
